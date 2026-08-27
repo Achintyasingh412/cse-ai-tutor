@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from dotenv import load_dotenv
 from google import genai
@@ -5,6 +6,10 @@ import chromadb
 from chromadb.utils import embedding_functions
 
 load_dotenv()
+
+# On Streamlit Cloud, secrets come from st.secrets, not a .env file — bridge them here
+if "GEMINI_API_KEY" in st.secrets:
+    os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
 
 @st.cache_resource
 def load_resources():
@@ -56,7 +61,6 @@ def get_answer_stream(question):
 # ---- Streamlit UI ----
 st.set_page_config(page_title="Luna — CSE AI Tutor", page_icon="🌙")
 
-# ---- Sidebar ----
 with st.sidebar:
     st.header("🌙 Luna")
     st.caption("Your personal CSE tutor")
