@@ -7,7 +7,6 @@ from chromadb.utils import embedding_functions
 load_dotenv()
 client = genai.Client()
 
-# ---- Connect to the same database ingest.py built ----
 embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
     model_name="all-MiniLM-L6-v2"
 )
@@ -18,18 +17,8 @@ collection = chroma_client.get_or_create_collection(
 )
 
 def retrieve_context(question, n_results=5):
-    """Search the knowledge base for the most relevant chunks."""
-    results = collection.query(
-        query_texts=[question],
-        n_results=n_results
-    )
-    chunks = results["documents"][0]
-
-    print("\n[DEBUG] Retrieved chunks:")
-    for i, chunk in enumerate(chunks):
-        print(f"--- Chunk {i+1} ---\n{chunk[:150]}...\n")
-
-    return "\n\n---\n\n".join(chunks)
+    results = collection.query(query_texts=[question], n_results=n_results)
+    return "\n\n---\n\n".join(results["documents"][0])
 
 print("Luna — type 'quit' to exit\n")
 
@@ -39,10 +28,8 @@ while True:
     if user_input.lower() == "quit":
         break
 
-    # Step 1: search your notes for relevant chunks
     context = retrieve_context(user_input)
 
-    # Step 2: hand those chunks to Gemini along with the question
     interaction = client.interactions.create(
         model="gemini-3.5-flash",
         system_instruction=(
@@ -54,7 +41,10 @@ while True:
             "'explain in detail', 'go deep', or 'give an example'. Format every answer as short bullet points "
             "(3-6 bullets), each bullet a single clear sentence — not a paragraph, not headers, not tables, "
             "no code blocks unless the student asks for code specifically. Never sacrifice correctness for "
-            "brevity — just be selective about what you include."
+            "brevity — just be selective about what you include. "
+            "IMPORTANT FORMATTING RULE: Never use LaTeX or math notation like \\(O(n)\\) or $O(n)$. "
+            "Always write complexity and math in plain text instead, like O(n log n) or O(n squared) — "
+            "no dollar signs, no backslashes, no special math formatting of any kind."
         ),
         input=f"CONTEXT:\n{context}\n\nQUESTION:\n{user_input}",
     )
