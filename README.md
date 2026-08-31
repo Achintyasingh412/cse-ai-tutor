@@ -142,6 +142,35 @@ python chatbot.py
 
 ### **Jeevesh** ([@jeeveshcodes](https://github.com/jeeveshcodes))
 - Initial prototype and course notes curation for CSE placement preparation.
+- Conceived the original vision, core concept, and foundational idea for "Luna — CSE AI Tutor" to assist college students.
+
+Established the foundational project architecture, outlining how RAG and vector retrieval can integrate with AI tutors.
+
+Defined the primary scope and target capabilities focusing on core Computer Science Engineering subjects like DSA and OOP.
+
+Proposed the implementation of a dual-layer memory system combining short-term chat persistence with long-term semantic notes.
+
+Curated and structured the initial set of academic course materials and notes to populate the project's vector database.
+
+Formulated Luna's persona, tone, and strict output guidelines, such as enforcing concise bullet points and avoiding special math formatting.
+
+Guided the overall technical strategy and technology stack selection, choosing Python, Google Gemini, ChromaDB, and SQLite.
+
+Designed the context-retrieval workflow ensuring student answers prioritize personal notes over generic LLM training data.
+
+Outlined chunking and embedding strategies using Sentence Transformers to maximize document retrieval accuracy.
+
+Led collaborative development efforts, task delegation, and code structuring across the repository.
+
+Supervised the integration of the Streamlit web interface components with backend data and retrieval pipelines.
+
+Maintained domain relevance and academic quality by aligning model outputs with standard college DSA and OOP syllabi.
+
+Designed the project's open-source repository layout, setup guidelines, and dependency structure for easy deployment.
+
+Pioneered the roadmap for advanced features like live status badges, expandable topic drawers, and chat reset capabilities.
+
+Established the core documentation standards and usage guides to ensure maintainability and community collaboration.
 
 ---
 
@@ -150,4 +179,4 @@ python chatbot.py
 - [ ] Support for additional subjects (DBMS, Operating Systems, Computer Networks).
 - [ ] Voice input & spoken response capabilities.
 - [ ] Multi-turn quiz generation and interactive flashcards.
-- [ ] Automated benchmark evaluation suite for retrieval accuracy.
+- [ ] Automated benchmark evaluation suite for retrieval accuracy.
