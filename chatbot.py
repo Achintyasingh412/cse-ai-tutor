@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from google import genai
 import chromadb
 from chromadb.utils import embedding_functions
+from memory_db import get_recent_conversation_history, log_conversation
 
 load_dotenv()
 client = genai.Client()
@@ -27,6 +28,10 @@ while True:
 
     if user_input.lower() == "quit":
         break
+    chat_history = get_recent_conversation_history()
+    history_text = "\n".join(
+        [f"{msg['role'].upper()}: {msg['content']}" for msg in chat_history]
+    )
 
     context = retrieve_context(user_input)
 

@@ -4,13 +4,16 @@ from dotenv import load_dotenv
 from google import genai
 import chromadb
 from chromadb.utils import embedding_functions
+from memory_db import get_recent_conversation_history, log_conversation
+load_dotenv()
+import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
-# On Streamlit Cloud, secrets come from st.secrets, not a .env file — bridge them here
-if "GEMINI_API_KEY" in st.secrets:
-    os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
-
+# This grabs your API key right out of your local .env file
+api_key = os.getenv("GEMINI_API_KEY")
+#
 @st.cache_resource
 def load_resources():
     client = genai.Client()
